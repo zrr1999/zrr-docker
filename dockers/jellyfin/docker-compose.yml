@@ -1,0 +1,63 @@
+version: '3.7'
+services:
+  flaresolverr:
+    container_name: flaresolverr
+    ports:
+      - '8191:8191'
+    environment:
+      - LOG_LEVEL=info
+    restart: unless-stopped
+    image: 'ghcr.io/flaresolverr/flaresolverr:latest'
+
+  jellyseerr:
+    container_name: jellyseerr
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - '5055:5055'
+    volumes:
+      - '~/workspace/zrr-docker/dockers/jellyfin/config/jellyseerr:/app/config'
+    restart: unless-stopped
+    image: fallenbagel/jellyseerr
+    
+  # sonarr:
+  #   container_name: sonarr
+  #   image: cr.hotio.dev/hotio/sonarr
+  #   ports:
+  #     - "8989:8989"
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #     - UMASK=002
+  #     - TZ=Asia/Shanghai
+  #   volumes:
+  #     - ~/workspace/zrr-docker/dockers/jellyfin/config/sonarr:/config
+
+  # radarr:
+  #   container_name: radarr
+  #   image: cr.hotio.dev/hotio/radarr
+  #   ports:
+  #     - "7878:7878"
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #     - UMASK=002
+  #     - TZ=Asia/Shanghai
+  #   volumes:
+  #     - ~/workspace/zrr-docker/dockers/jellyfin/config/radarr:/config
+
+  # prowlarr:
+  #   image: lscr.io/linuxserver/prowlarr:latest
+  #   container_name: prowlarr
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #     - TZ=Asia/Shanghai
+  #   ports:
+  #     - 9696:9696
+  #   volumes:
+  #     - ~/workspace/zrr-docker/dockers/jellyfin/config/prowlarr:/config
+  #   restart: unless-stopped
+  
+# docker run --name homepage -d -p 13000:3000 -v ~/workspace/homepage/config:/app/config -v /var/run/docker.sock:/var/run/docker.sock ghcr.io/benphelps/homepage:latest
+# docker run -d --name qiandao -p 12345:80 -v $(pwd)/qiandao:/usr/src/app/config   asdaragon/qiandao

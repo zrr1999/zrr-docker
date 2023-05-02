@@ -1,0 +1,42 @@
+source /etc/profile
+export LC_ALL=C.UTF-8
+export LANG=C.UTF-8
+export ZSH=$HOME/.oh-my-zsh
+
+ZSH_THEME="robbyrussell"
+ZSH_DISABLE_COMPFIX=true
+
+source $ZSH/oh-my-zsh.sh
+
+# zplug configuration
+export ZPLUG_HOME=/home/linuxbrew/.linuxbrew/opt/zplug
+source $ZPLUG_HOME/init.zsh
+zplug "plugins/git", from:oh-my-zsh
+zplug "zplug/zplug", hook-build:'zplug --self-manage'
+zplug "romkatv/powerlevel10k", as:theme, depth:1
+zplug "zsh-users/zsh-history-substring-search"
+zplug "zsh-users/zsh-autosuggestions"
+zplug "zsh-users/zsh-completions"
+zplug "wting/autojump"
+zplug "zrr1999/zsh-ssh"
+zplug "Game4Move78/zsh-bitwarden"
+zplug "rapgenic/zsh-git-complete-urls"
+
+if ! zplug check; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+zplug load
+
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+autoload -Uz compinit
+zstyle ':completion:*' menu select
+fpath+=~/.zfunc
+
+# session-wise fix
+ulimit -n 4096
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles/
