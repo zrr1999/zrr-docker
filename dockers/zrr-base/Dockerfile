@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:latest as base
 
 # install apt packages
 RUN sed -i s@/archive.ubuntu.com/@/mirrors.tuna.tsinghua.edu.cn/@g /etc/apt/sources.list
@@ -6,6 +6,7 @@ RUN apt update
 RUN apt install -y git curl tree build-essential
 RUN apt install -y zsh
 RUN apt install -y openssh-server
+RUN apt install -y ripgrep
 
 # switch to zrr1999 user
 RUN useradd -r -g root zrr1999
@@ -19,10 +20,11 @@ USER zrr1999
 RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 RUN (echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> /etc/profile
 RUN eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+ENV PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 
 # install and config zsh
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-RUN /home/linuxbrew/.linuxbrew/bin/brew install zplug
+RUN brew install zplug
 COPY config/.zshrc /home/zrr1999/.zshrc
 COPY config/.p10k.zsh /home/zrr1999/.p10k.zsh
 
@@ -32,8 +34,10 @@ RUN sed -i 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid
 RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa
 COPY run.sh /run.sh
 
-# install gitui
-RUN /home/linuxbrew/.linuxbrew/bin/brew install gitui
+# install some tools
+RUN brew install lsd hyperfine bottom procs
+RUN brew install git-delta
+RUN brew install gitui zellij
 
 WORKDIR "/workspace"
 EXPOSE 22
