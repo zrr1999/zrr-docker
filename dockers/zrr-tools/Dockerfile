@@ -6,4 +6,4 @@ COPY get_ip.py /get_ip.py
 
 WORKDIR "/"
 EXPOSE 22
-CMD ["uvicorn", "get_ip:app", "--host", "0.0.0.0"]
+CMD ["python", "/get_ip.py"]
