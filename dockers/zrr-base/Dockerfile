@@ -3,10 +3,7 @@ FROM ubuntu:latest as base
 # install apt packages
 RUN sed -i s@/archive.ubuntu.com/@/mirrors.tuna.tsinghua.edu.cn/@g /etc/apt/sources.list
 RUN apt update
-RUN apt install -y git curl tree build-essential
-RUN apt install -y zsh
-RUN apt install -y openssh-server
-RUN apt install -y ripgrep
+RUN apt install -y git curl tree build-essential zsh openssh-server ripgrep
 
 # switch to zrr1999 user
 RUN useradd -r -g root zrr1999
@@ -32,7 +29,6 @@ COPY config/.p10k.zsh /home/zrr1999/.p10k.zsh
 RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 RUN sed -i 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' /etc/pam.d/sshd
 RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa
-COPY run.sh /run.sh
 
 # install some tools
 RUN brew install lsd hyperfine bottom procs
@@ -41,4 +37,4 @@ RUN brew install gitui zellij
 
 WORKDIR "/workspace"
 EXPOSE 22
-CMD ["/bin/zsh", "/run.sh"]
+CMD ["/etc/init.d/ssh", "start", "&&", "/bin/zsh"]
