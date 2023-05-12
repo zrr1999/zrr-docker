@@ -1,7 +1,7 @@
 version: "3"
 services:
-  syncthing:
-    image: zrr-tools:0.1.0
+  zrr-tools:
+    image: zrr1999/zrr-tools:latest
     container_name: zrr-tools
     ports:
       - 12888:8000

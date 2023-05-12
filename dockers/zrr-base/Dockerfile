@@ -3,7 +3,7 @@ FROM ubuntu:latest as base
 # install apt packages
 RUN sed -i s@/archive.ubuntu.com/@/mirrors.tuna.tsinghua.edu.cn/@g /etc/apt/sources.list
 RUN apt update
-RUN apt install -y git curl tree build-essential zsh openssh-server ripgrep
+RUN apt install -y git curl build-essential zsh openssh-server ripgrep
 
 # switch to zrr1999 user
 RUN useradd -r -g root zrr1999

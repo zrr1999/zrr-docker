@@ -40,9 +40,20 @@ export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles/
 
 alias grep='rg'
-
 alias ls='lsd'
 alias l='ls -l'
 alias la='ls -a'
 alias lla='ls -la'
-alias lt='ls --tree'
+tree () {
+    local depth=3
+    (($+1)) && {
+        local depth=$1
+    }
+    ls --tree --depth $depth
+}
+
+alias -s gz='tar -xzvf'
+alias -s tgz='tar -xzvf'
+alias -s zip='unzip'
+alias -s bz2='tar -xjvf'
+
