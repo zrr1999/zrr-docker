@@ -1,0 +1,14 @@
+version: "3"
+services:
+  boning:
+    image: zrr1999/boning:latest
+    container_name: boning
+    ports:
+      - 12888:8000
+    restart: unless-stopped
+  typst:
+    image: zrr1999/typst:latest
+    container_name: typst
+    ports:
+      - 12888:8000
+    restart: unless-stopped

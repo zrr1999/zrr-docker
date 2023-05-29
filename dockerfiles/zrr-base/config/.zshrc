@@ -39,6 +39,7 @@ ulimit -n 4096
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles/
 
+# add some alias
 alias grep='rg'
 alias ls='lsd'
 alias l='ls -l'
@@ -57,3 +58,4 @@ alias -s tgz='tar -xzvf'
 alias -s zip='unzip'
 alias -s bz2='tar -xjvf'
 
+eval "$(zoxide init zsh)"
