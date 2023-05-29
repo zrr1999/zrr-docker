@@ -3,7 +3,7 @@ FROM ubuntu:latest as base
 # install apt packages
 RUN sed -i s@/archive.ubuntu.com/@/mirrors.tuna.tsinghua.edu.cn/@g /etc/apt/sources.list
 RUN apt update
-RUN apt install -y git curl build-essential zsh openssh-server ripgrep
+RUN apt install -y git curl build-essential zsh openssh-server ripgrep fd-find
 
 # switch to zrr1999 user
 RUN useradd -r -g root zrr1999
@@ -31,10 +31,14 @@ RUN sed -i 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid
 RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa
 
 # install some tools
-RUN brew install lsd hyperfine bottom procs
-RUN brew install git-delta
-RUN brew install gitui zellij
+RUN brew install lsd hyperfine bottom procs sd dust pueue
+RUN brew install git-delta gitui zellij 
+
+# add some services
+RUN echo "pueued -d" >> /run.sh
+RUN echo "/etc/init.d/ssh start" >> /run.sh
+RUN echo "/bin/zsh" >> /run.sh
 
 WORKDIR "/workspace"
 EXPOSE 22
-CMD ["/etc/init.d/ssh", "start", "&&", "/bin/zsh"]
+CMD ["zsh", "/run.sh"]
