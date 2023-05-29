@@ -2,13 +2,13 @@ name: Docker Image Build and Push
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "main" ]
     paths:
-      - 'dockers/**'
+      - '**/Dockerfile'
   pull_request:
-    branches: [ "master" ]
+    branches: [ "main" ]
     paths:
-      - 'dockers/**'
+      - '**/Dockerfile'
 
 jobs:
   build:
