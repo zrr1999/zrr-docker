@@ -25,7 +25,7 @@ jobs:
       env:
         COMMIT_ID: ${{ github.sha}}
       with:
-        context: ./dockers/${{matrix.image}}
+        context: ./dockerfiles/${{matrix.image}}
         push: true
         tags: |
           ${{ secrets.DOCKERHUB_USERNAME }}/${{matrix.image}}:${{ env.COMMIT_ID }}
