@@ -1,7 +1,7 @@
 FROM ubuntu:latest as base
 
 # install apt packages
-RUN sed -i s@/archive.ubuntu.com/@/mirrors.tuna.tsinghua.edu.cn/@g /etc/apt/sources.list
+RUN sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list
 RUN apt update
 RUN apt install -y git curl build-essential zsh openssh-server ripgrep fd-find
 
