@@ -28,5 +28,5 @@ jobs:
         context: ./dockers/${{matrix.image}}
         push: true
         tags: |
-          # ${{ secrets.DOCKERHUB_USERNAME }}/${{matrix.image}}:${{ env.COMMIT_ID }}
+          ${{ secrets.DOCKERHUB_USERNAME }}/${{matrix.image}}:${{ env.COMMIT_ID }}
           ${{ secrets.DOCKERHUB_USERNAME }}/${{matrix.image}}:latest
