@@ -1,7 +1,7 @@
 FROM python:3.11-alpine
 
 # install package
-RUN pip install fastapi uvicorn
+RUN pip install --no-cache-dir -r prequirements.txt
 COPY get_ip.py /get_ip.py
 
 WORKDIR "/"
