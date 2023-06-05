@@ -29,7 +29,8 @@ RUN brew install zplug
 COPY config/.zshrc /home/zrr1999/.zshrc
 COPY config/.p10k.zsh /home/zrr1999/.p10k.zsh
 COPY config/.zplug.zsh /home/zrr1999/.zplug.zsh
-RUN source /home/zrr1999/.zplug.zsh && zplug install
+# shellcheck source=/home/zrr1999/.zplug.zsh
+RUN zsh -c "source /home/zrr1999/.zplug.zsh && zplug install"
 
 # install and config ssh
 RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
