@@ -28,7 +28,8 @@ RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/mast
 COPY config/.zshrc /home/zrr1999/.zshrc
 COPY config/.p10k.zsh /home/zrr1999/.p10k.zsh
 COPY config/.zinit.zsh /home/zrr1999/.zinit.zsh
-RUN sh -c "$(curl -fsSL get.zshell.dev)" -- -i skip -b main
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/z-shell/zi-src/main/lib/sh/install.sh)" -- -i skip \
+&& /bin/zsh -cl -- '@zi-scheduler burst || true'
 RUN source /home/zrr1999/.zinit.zsh
 
 # install and config ssh
