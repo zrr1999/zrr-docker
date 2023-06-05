@@ -12,7 +12,7 @@
             key: a07afbcd7a684dae8543c9ea5c4e1e60
             enableBlocks: true # optional, defaults to false
             enableNowPlaying: true # optional, defaults to true
-    
+
     - Jellyseerr:
         icon: jellyseerr.png
         href: http://s.home.bone6.top/
@@ -21,7 +21,7 @@
             fields: ["pending", "approved", "available"]
             url: http://s.home.bone6.top
             key: MTY3ODc5MjA4OTAyMWYzYzMzZTZkLWViZmYtNDY0Ni1hMmQyLTcxNzU5MTcwNGRhYw
-    
+
     - Radarr:
         icon: radarr.png
         href: http://192.168.2.101:8989
@@ -38,4 +38,3 @@
         widget:
             type: qbittorrent
             url: http://192.168.2.101:8081
-

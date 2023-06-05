@@ -19,7 +19,7 @@ services:
       - '~/workspace/zrr-docker/dockers/jellyfin/config/jellyseerr:/app/config'
     restart: unless-stopped
     image: fallenbagel/jellyseerr
-    
+
   # sonarr:
   #   container_name: sonarr
   #   image: cr.hotio.dev/hotio/sonarr
@@ -58,6 +58,6 @@ services:
   #   volumes:
   #     - ~/workspace/zrr-docker/dockers/jellyfin/config/prowlarr:/config
   #   restart: unless-stopped
-  
+
 # docker run --name homepage -d -p 13000:3000 -v ~/workspace/homepage/config:/app/config -v /var/run/docker.sock:/var/run/docker.sock ghcr.io/benphelps/homepage:latest
 # docker run -d --name qiandao -p 12345:80 -v $(pwd)/qiandao:/usr/src/app/config   asdaragon/qiandao

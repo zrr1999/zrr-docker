@@ -3,7 +3,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # install apt-get packages
 RUN sed -i s@/archive.ubuntu.com/@/mirrors.ustc.edu.cn/@g /etc/apt/sources.list
-RUN apt-get update 
+RUN apt-get update
 RUN apt-get install -y git curl build-essential zsh openssh-server ripgrep fd-find
 RUN apt-get install -y ca-certificates language-pack-zh-hans
 
@@ -18,7 +18,7 @@ RUN echo "root:0000" | chpasswd
 RUN echo "zrr1999:0000" | chpasswd
 USER zrr1999
 
-# install brew 
+# install brew
 RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 RUN (echo; echo "eval '$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)'") >> /etc/profile
 ENV PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
