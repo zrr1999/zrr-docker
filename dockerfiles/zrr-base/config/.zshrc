@@ -3,7 +3,6 @@ setopt no_nomatch
 export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
 export ZSH=$HOME/.oh-my-zsh
-export HOMEBREW_NO_AUTO_UPDATE=true
 
 ZSH_THEME="robbyrussell"
 ZSH_DISABLE_COMPFIX=true
@@ -19,9 +18,14 @@ fpath+=~/.zfunc
 # session-wise fix
 ulimit -n 4096
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
+# config homebrew
+export HOMEBREW_NO_AUTO_UPDATE=true
+export HOMEBREW_NO_INSTALL_FROM_API=1
 export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles/
 
 # add some alias
+alias j='z'
 alias grep='rg'
 alias ls='lsd'
 alias l='ls -l'

@@ -37,8 +37,8 @@ RUN sed -i 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid
 RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa
 
 # install some tools
-RUN brew install lsd hyperfine bottom procs sd dust pueue
-RUN brew install git-delta gitui zellij autojump
+RUN brew install lsd hyperfine bottom procs sd dust pueue lua
+RUN brew install git-delta gitui zellij
 RUN brew install helix vim
 
 # install python and related tools
