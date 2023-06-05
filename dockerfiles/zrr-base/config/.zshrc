@@ -9,16 +9,7 @@ ZSH_THEME="robbyrussell"
 ZSH_DISABLE_COMPFIX=true
 
 source $ZSH/oh-my-zsh.sh
-
-# zplug configuration
-source ~/.zplug.zsh
-if ! zplug check; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
-fi
-zplug load
+source .zinit.zsh
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 autoload -Uz compinit

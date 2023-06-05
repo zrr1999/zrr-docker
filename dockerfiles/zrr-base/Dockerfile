@@ -25,12 +25,11 @@ ENV PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 
 # install and config zsh
 RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-RUN brew install zplug
 COPY config/.zshrc /home/zrr1999/.zshrc
 COPY config/.p10k.zsh /home/zrr1999/.p10k.zsh
-COPY config/.zplug.zsh /home/zrr1999/.zplug.zsh
-# shellcheck source=/home/zrr1999/.zplug.zsh
-RUN zsh -c "source /home/zrr1999/.zplug.zsh && zplug install"
+COPY config/.zinit.zsh /home/zrr1999/.zinit.zsh
+RUN sh -c "$(curl -fsSL get.zshell.dev)" -- -i skip -b main
+RUN source /home/zrr1999/.zinit.zsh
 
 # install and config ssh
 RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
