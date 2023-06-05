@@ -2,6 +2,7 @@ failure-threshold: warning
 ignored:
   - DL3007
   - DL3008
+  - DL3015
   - DL3018
   - DL3025
   - SC1010

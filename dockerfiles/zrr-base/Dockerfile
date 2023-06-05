@@ -2,10 +2,10 @@ FROM ubuntu:latest as base
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # install apt-get packages
-RUN sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list
+RUN sed -i s@/archive.ubuntu.com/@/mirrors.ustc.edu.cn/@g /etc/apt/sources.list
 RUN apt-get update 
-RUN apt-get install -y --no-install-recommends git curl build-essential zsh openssh-server ripgrep fd-find 
-RUN apt-get install -y --no-install-recommends language-pack-zh-hans
+RUN apt-get install -y git curl build-essential zsh openssh-server ripgrep fd-find
+RUN apt-get install -y ca-certificates language-pack-zh-hans
 
 # fix some errors
 RUN localedef -c -i zh_CN -f UTF-8 zh_CN.UTF-8
@@ -20,7 +20,7 @@ USER zrr1999
 
 # install brew 
 RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-RUN (echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> /etc/profile
+RUN (echo; echo "eval '$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)'") >> /etc/profile
 ENV PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 
 # install and config zsh
@@ -28,6 +28,8 @@ RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/mast
 RUN brew install zplug
 COPY config/.zshrc /home/zrr1999/.zshrc
 COPY config/.p10k.zsh /home/zrr1999/.p10k.zsh
+COPY config/.zplug.zsh /home/zrr1999/.zplug.zsh
+RUN source /home/zrr1999/.zplug.zsh && zplug install
 
 # install and config ssh
 RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
@@ -37,6 +39,7 @@ RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa
 # install some tools
 RUN brew install lsd hyperfine bottom procs sd dust pueue
 RUN brew install git-delta gitui zellij autojump
+RUN brew install helix vim
 
 # install python and related tools
 RUN curl -sSf https://rye-up.com/get | RYE_NO_AUTO_INSTALL=1 RYE_INSTALL_OPTION="--yes" bash

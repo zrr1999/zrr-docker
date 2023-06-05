@@ -1,7 +1,9 @@
 source /etc/profile
+setopt no_nomatch
 export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
 export ZSH=$HOME/.oh-my-zsh
+export HOMEBREW_NO_AUTO_UPDATE=true
 
 ZSH_THEME="robbyrussell"
 ZSH_DISABLE_COMPFIX=true
@@ -9,18 +11,7 @@ ZSH_DISABLE_COMPFIX=true
 source $ZSH/oh-my-zsh.sh
 
 # zplug configuration
-export ZPLUG_HOME=$(brew --prefix)/opt/zplug
-source $ZPLUG_HOME/init.zsh
-zplug "plugins/git", from:oh-my-zsh
-zplug "zplug/zplug", hook-build:'zplug --self-manage'
-zplug "romkatv/powerlevel10k", as:theme, depth:1
-zplug "zsh-users/zsh-history-substring-search"
-zplug "zsh-users/zsh-autosuggestions"
-zplug "zsh-users/zsh-completions"
-zplug "wting/autojump"
-zplug "zrr1999/zsh-ssh"
-zplug "Game4Move78/zsh-bitwarden"
-zplug "rapgenic/zsh-git-complete-urls"
+source ~/.zplug.zsh
 if ! zplug check; then
     printf "Install? [y/N]: "
     if read -q; then
@@ -59,4 +50,4 @@ alias -s zip='unzip'
 alias -s bz2='tar -xjvf'
 
 source "$HOME/.rye/env"
-
+source /usr/share/autojump/autojump.sh
