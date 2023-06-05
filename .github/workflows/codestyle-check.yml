@@ -8,7 +8,7 @@ on:
 
 jobs:
   code-style-check:
-    runs-on: ubuntu-20.04  # hadolint have a bug in ubuntu-22.04
+    runs-on: ubuntu-latest
     name: CodeStyle Check
     steps:
       - name: Checkout
