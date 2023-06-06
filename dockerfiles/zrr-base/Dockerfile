@@ -45,8 +45,7 @@ RUN brew install python pdm
 # add some services
 RUN echo "pueued -d" >> /run.sh
 RUN echo "/etc/init.d/ssh start" >> /run.sh
-RUN echo "/bin/zsh" >> /run.sh
 
 WORKDIR "/workspace"
 EXPOSE 22
-CMD ["zsh", "/run.sh"]
+CMD ["zsh", "/run.sh && /bin/zsh"]
