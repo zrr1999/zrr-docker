@@ -9,7 +9,7 @@ source "$HOME/.zi/bin/zi.zsh"
 autoload -Uz _zi
 (( ${+_comps} )) && _comps[zi]=_zi
 
-zi wait lucid proto"ssh" light-mode for \
+zi wait lucid light-mode for \
     zsh-users/zsh-history-substring-search \
     zsh-users/zsh-autosuggestions \
     zsh-users/zsh-completions \
