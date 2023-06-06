@@ -2,7 +2,7 @@ name: Docker Image Build and Push
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [main, develop]
     paths:
       - '**/Dockerfile'
 jobs:
@@ -20,6 +20,7 @@ jobs:
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
     - name: Build and push Docker image (${{matrix.image}})
       uses: docker/build-push-action@v2
+      if: github.event_name == 'pull_request'
       env:
         COMMIT_ID: ${{ github.sha}}
       with:
@@ -27,4 +28,14 @@ jobs:
         push: true
         tags: |
           ${{ secrets.DOCKERHUB_USERNAME }}/${{matrix.image}}:${{ env.COMMIT_ID }}
+    - name: Build and push Docker image (${{matrix.image}})
+      uses: docker/build-push-action@v2
+      if: github.event_name != 'pull_request'
+      env:
+        COMMIT_ID: ${{ github.sha}}
+      with:
+        context: ./dockerfiles/${{matrix.image}}
+        push: true
+        tags: |
+          ${{ secrets.DOCKERHUB_USERNAME }}/${{matrix.image}}:${{ github.ref_name }}
           ${{ secrets.DOCKERHUB_USERNAME }}/${{matrix.image}}:latest
