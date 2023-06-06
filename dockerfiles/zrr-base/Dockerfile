@@ -25,11 +25,10 @@ ENV PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 
 # install and config zsh
 RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-COPY config/.zshrc /home/zrr1999/.zshrc
-COPY config/.p10k.zsh /home/zrr1999/.p10k.zsh
-COPY config/.zi.zsh /home/zrr1999/.zi.zsh
+COPY config/.* /home/zrr1999/
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/z-shell/zi-src/main/lib/sh/install.sh)" -- -i skip \
-&& /bin/zsh -cl -- 'source ~/.zshrc && @zi-scheduler burst || true'
+&& /bin/zsh -cl -- 'source ~/.zi.zsh && @zi-scheduler burst || true'
+
 
 # install and config ssh
 RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
@@ -42,8 +41,7 @@ RUN brew install git-delta gitui zellij
 RUN brew install helix vim
 
 # install python and related tools
-RUN curl -sSf https://rye-up.com/get | RYE_NO_AUTO_INSTALL=1 RYE_INSTALL_OPTION="--yes" bash
-ENV PATH="~/.rye/shims:$PATH"
+RUN brew install python pdm
 
 # add some services
 RUN echo "pueued -d" >> /run.sh
