@@ -37,7 +37,7 @@ RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa
 # install some tools
 RUN brew install lsd hyperfine bottom procs sd dust pueue lua
 RUN brew install git-delta gitui zellij
-RUN brew install helix vim
+RUN brew install helix
 
 # install python and related tools
 RUN brew install python pdm
