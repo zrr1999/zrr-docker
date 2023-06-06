@@ -45,4 +45,3 @@ alias -s zip='unzip'
 alias -s bz2='tar -xjvf'
 
 source "$HOME/.rye/env"
-source /usr/share/autojump/autojump.sh

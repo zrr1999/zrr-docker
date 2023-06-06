@@ -29,7 +29,7 @@ COPY config/.zshrc /home/zrr1999/.zshrc
 COPY config/.p10k.zsh /home/zrr1999/.p10k.zsh
 COPY config/.zi.zsh /home/zrr1999/.zi.zsh
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/z-shell/zi-src/main/lib/sh/install.sh)" -- -i skip \
-&& /bin/zsh -cl -- '@zi-scheduler burst || true'
+&& /bin/zsh -cl -- 'source ~/.zshrc && @zi-scheduler burst || true'
 
 # install and config ssh
 RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
