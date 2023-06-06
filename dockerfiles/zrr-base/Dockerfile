@@ -27,8 +27,7 @@ ENV PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 COPY config/.* /home/zrr1999/
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/z-shell/zi-src/main/lib/sh/install.sh)" -- -i skip \
-&& /bin/zsh -cl -- 'source ~/.zi.zsh && @zi-scheduler burst || true'
-
+&& /bin/zsh -cl -- '(source ~/.zi.zsh && @zi-scheduler burst) || true'
 
 # install and config ssh
 RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
