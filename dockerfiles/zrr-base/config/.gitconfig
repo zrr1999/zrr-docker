@@ -1,0 +1,7 @@
+[user]
+    name = Zhan Rongrui
+    email = 2742392377@qq.com
+[url "git@github.com:"]
+    insteadOf = https://github.com/
+[init]
+    defaultBranch = main
