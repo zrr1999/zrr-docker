@@ -1,9 +1,14 @@
 FROM ubuntu:latest as base
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-# install apt packages
-RUN sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list
-RUN apt update
-RUN apt install -y git curl build-essential zsh openssh-server ripgrep fd-find
+# install apt-get packages
+RUN sed -i s@/archive.ubuntu.com/@/mirrors.ustc.edu.cn/@g /etc/apt/sources.list
+RUN apt-get update
+RUN apt-get install -y git curl build-essential zsh openssh-server ripgrep fd-find
+RUN apt-get install -y ca-certificates language-pack-zh-hans
+
+# fix some errors
+RUN localedef -c -i zh_CN -f UTF-8 zh_CN.UTF-8
 
 # switch to zrr1999 user
 RUN useradd -r -g root zrr1999
@@ -13,17 +18,18 @@ RUN echo "root:0000" | chpasswd
 RUN echo "zrr1999:0000" | chpasswd
 USER zrr1999
 
-# install brew 
+# install brew
 RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-RUN (echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> /etc/profile
-RUN eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+RUN (echo; echo "eval '$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)'") >> /etc/profile
 ENV PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 
 # install and config zsh
-RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-RUN brew install zplug
+RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 COPY config/.zshrc /home/zrr1999/.zshrc
 COPY config/.p10k.zsh /home/zrr1999/.p10k.zsh
+COPY config/.zi.zsh /home/zrr1999/.zi.zsh
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/z-shell/zi-src/main/lib/sh/install.sh)" -- -i skip \
+&& /bin/zsh -cl -- 'source ~/.zshrc && @zi-scheduler burst || true'
 
 # install and config ssh
 RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
@@ -31,8 +37,13 @@ RUN sed -i 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid
 RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa
 
 # install some tools
-RUN brew install lsd hyperfine bottom procs sd dust pueue
-RUN brew install git-delta gitui zellij 
+RUN brew install lsd hyperfine bottom procs sd dust pueue lua
+RUN brew install git-delta gitui zellij
+RUN brew install helix vim
+
+# install python and related tools
+RUN curl -sSf https://rye-up.com/get | RYE_NO_AUTO_INSTALL=1 RYE_INSTALL_OPTION="--yes" bash
+ENV PATH="~/.rye/shims:$PATH"
 
 # add some services
 RUN echo "pueued -d" >> /run.sh

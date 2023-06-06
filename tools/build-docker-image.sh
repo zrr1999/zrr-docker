@@ -9,4 +9,3 @@ for folder in $(ls -d $path/*/); do
     docker push $tag
   fi
 done
-
