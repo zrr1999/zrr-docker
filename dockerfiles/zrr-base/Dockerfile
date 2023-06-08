@@ -49,4 +49,4 @@ RUN chmod +x /run.sh
 
 WORKDIR "/workspace"
 EXPOSE 22
-CMD "/run.sh && /bin/zsh"
+CMD /bin/bash -c "/run.sh && zsh"
