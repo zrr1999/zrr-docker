@@ -1,5 +1,6 @@
 FROM ubuntu:latest as base
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+ENV TERM xterm
 
 # install apt-get packages
 RUN sed -i s@/archive.ubuntu.com/@/mirrors.ustc.edu.cn/@g /etc/apt/sources.list
