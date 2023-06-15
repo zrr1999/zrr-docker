@@ -8,12 +8,15 @@ ZSH_THEME="robbyrussell"
 ZSH_DISABLE_COMPFIX=true
 
 source $ZSH/oh-my-zsh.sh
-source ~/.zi.zsh
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-autoload -Uz compinit
-zstyle ':completion:*' menu select
 fpath+=~/.zfunc
+fpath+=$(brew --prefix)/share/zsh/site-functions
+zstyle ':completion:*' menu select
+autoload -Uz compinit
+
+source ~/.zi.zsh
+source ~/.atuin.zsh
 
 # session-wise fix
 ulimit -n 4096
