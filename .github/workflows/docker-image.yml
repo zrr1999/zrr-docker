@@ -9,7 +9,7 @@ jobs:
   build:
     strategy:
       matrix:
-        image: ["zrr-base", "zrr-tools"]
+        image: ["zrr-base", "zrr-main", "zrr-tools", "typst"]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3

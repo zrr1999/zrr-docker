@@ -1,28 +1,33 @@
 version: "3"
 services:
   my-base:
-    image: zrr1999/zrr-base:latest
+    image: zrr1999/zrr-main:latest
+    tty: true
     privileged: true
+    pid: host
     container_name: my-base
     ports:
       - 10000:22
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock'
       - '~/workspace:/workspace'
+    command: /bin/bash -c "/run.sh && zsh"
     restart: unless-stopped
   boning-mlir:
     image: zrr1999/boning-mlir:latest
+    tty: true
     container_name: boning-mlir
     ports:
       - 10001:22
     volumes:
       - '~/workspace:/workspace'
+    command: /bin/bash -c "/run.sh && zsh"
     restart: unless-stopped
-  typst:
-    image: zrr1999/typst:latest
-    container_name: typst
-    ports:
-      - 10002:22
-    volumes:
-      - '~/workspace:/workspace'
-    restart: unless-stopped
+  # typst:
+  #   image: zrr1999/typst:latest
+  #   container_name: typst
+  #   ports:
+  #     - 10002:22
+  #   volumes:
+  #     - '~/workspace:/workspace'
+  #   restart: unless-stopped

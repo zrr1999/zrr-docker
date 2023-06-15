@@ -1,17 +1,19 @@
-version: "3"
+version: "2.1"
 services:
   syncthing:
-    image: syncthing/syncthing
+    image: syncthing/syncthing:latest
     container_name: syncthing
     hostname: Bone's Syncthing
     environment:
       - PUID=1000
       - PGID=1000
+      - TZ=Etc/UTC
     volumes:
-      - ~/workspace/zrr-docker/dockers/syncthing/st-sync:/var/syncthing
+      - ~/workspace/zrr-docker/dockers/syncthing/appdata/config:/config
+      - ~/workspace/zrr-docker/dockers/syncthing/data:/data
     ports:
-      - 8384:8384 # Web UI
-      - 22000:22000/tcp # TCP file transfers
-      - 22000:22000/udp # QUIC file transfers
-      - 21027:21027/udp # Receive local discovery broadcasts
+      - 8384:8384
+      - 22000:22000/tcp
+      - 22000:22000/udp
+      - 21027:21027/udp
     restart: unless-stopped
