@@ -11,14 +11,17 @@ autoload -Uz _zi
 
 zi wait lucid light-mode for \
     zsh-users/zsh-history-substring-search \
-    zsh-users/zsh-autosuggestions \
-    zsh-users/zsh-completions \
     z-shell/H-S-MW \
     davidde/git \
     skywind3000/z.lua \
     zrr1999/zsh-ssh \
     Game4Move78/zsh-bitwarden \
-    as"theme" depth"1" romkatv/powerlevel10k \
     rapgenic/zsh-git-complete-urls
+
+zi lucid light-mode for \
+    zsh-users/zsh-autosuggestions \
+    zsh-users/zsh-completions \
+    z-shell/brew-completions \
+    as"theme" depth"1" romkatv/powerlevel10k
 
 zicompinit
