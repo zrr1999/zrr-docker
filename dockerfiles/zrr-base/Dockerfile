@@ -5,11 +5,9 @@ ENV TERM xterm
 # install apt-get packages
 RUN sed -i s@/archive.ubuntu.com/@/mirrors.ustc.edu.cn/@g /etc/apt/sources.list
 RUN apt-get update \
-&& apt-get install -y --no-install-recommends git curl \
-build-essential zsh openssh-server ripgrep fd-find \
-ca-certificates language-pack-zh-hans \
-&& apt-get clean \
-&& rm -rf /var/lib/apt/lists/*
+&& apt-get install -y --no-install-recommends zsh git curl \
+build-essential openssh-server ca-certificates language-pack-zh-hans \
+&& apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # fix some errors
 RUN localedef -c -i zh_CN -f UTF-8 zh_CN.UTF-8
@@ -39,13 +37,12 @@ RUN sed -i 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid
 RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa
 
 # install some tools
-RUN brew install lsd hyperfine bottom procs sd dust pueue lua fzf
-RUN brew install git-delta gitui zellij
-RUN brew install helix
-RUN brew install atuin
+RUN brew install lsd sd dust ripgrep fd hyperfine bottom procs
+RUN brew install pueue fzf httpie progress atuin lua
+RUN brew install helix git-delta gitui zellij
 
 # install python and related tools
-RUN brew install python@3.10 pdm
+RUN brew install python@3.10 pdm pre-commit
 
 # add some services
 RUN echo "pueued -d" >> /run.sh

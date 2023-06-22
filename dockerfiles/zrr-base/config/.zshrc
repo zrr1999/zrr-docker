@@ -34,6 +34,7 @@ alias ls='lsd'
 alias l='ls -l'
 alias la='ls -a'
 alias lla='ls -la'
+alias wget='http --download'
 tree () {
     local depth=3
     (($+1)) && {
