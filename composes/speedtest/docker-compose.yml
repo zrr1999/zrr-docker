@@ -1,0 +1,15 @@
+version: '3.3'
+services:
+  speedtest-tracker:
+    container_name: speedtest-tracker
+    ports:
+        - '8002:80'
+        - '44302:443'
+    environment:
+        - PUID=1000
+        - PGID=1000
+    volumes:
+        - '~/workspace/compose-config/config:/config'
+        - '~/workspace/compose-config/web:/etc/ssl/web'
+    image: 'ghcr.io/alexjustesen/speedtest-tracker:latest'
+    restart: unless-stopped

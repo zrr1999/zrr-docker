@@ -1,0 +1,10 @@
+version: '3.3'
+services:
+  server:
+    image: 'vaultwarden/server:latest'
+    container_name: vaultwarden
+    volumes:
+      - '~/workspace/compose-config/vaultwarden:/data/'
+    ports:
+      - '8001:80'
+    restart: unless-stopped

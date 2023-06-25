@@ -3,6 +3,8 @@ services:
   rclone:
     image: rclone/rclone
     container_name: rclone
+    command: rclone sync /workspace/compose-config/ onedrive:/backup/compose-config/ -L
     volumes:
-      - '~/.config/rclone:/config/rclone'
-      - '~/data:/data:shared'
+      - '~/workspace/compose-config/rclone:/config/rclone'
+      - '~/workspace:/workspace:shared'
+    restart: unless-stopped

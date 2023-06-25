@@ -1,0 +1,14 @@
+version: "3"
+services:
+  clash:
+    image: ghcr.io/dreamacro/clash
+    restart: always
+    container_name: clash
+    volumes:
+      - ~/workspace/compose-config/clash:/root/.config/clash
+      - ~/workspace/compose-config/clash/ui:/ui # dashboard volume
+    ports:
+      - "17890:7890"
+      - "17891:7891"
+      - "8003:9090" # The External Controller (RESTful API)
+    network_mode: "bridge"
