@@ -5,7 +5,7 @@ ENV TERM xterm
 # install apt-get packages
 RUN sed -i s@/archive.ubuntu.com/@/mirrors.ustc.edu.cn/@g /etc/apt/sources.list
 RUN apt-get update \
-&& apt-get install -y --no-install-recommends zsh git curl \
+&& apt-get install -y --no-install-recommends zsh git curl bsdmainutils \
 build-essential openssh-server ca-certificates language-pack-zh-hans \
 && apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -22,7 +22,7 @@ USER zrr1999
 
 # install brew
 RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-RUN (echo; echo "eval '$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)'") >> /etc/profile
+RUN (echo; echo "eval '$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)'") >> /home/zrr1999/profile
 ENV PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 
 # install and config zsh
@@ -39,9 +39,8 @@ RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa
 # install some tools
 RUN brew install lsd sd dust ripgrep fd hyperfine bottom procs
 RUN brew install pueue fzf httpie progress atuin lua
-RUN brew install helix git-delta gitui zellij
-
-# install python and related tools
+RUN brew install helix git-delta gitui zellij difftastic
+RUN brew install ast-grep
 RUN brew install python@3.10 pdm pre-commit
 
 # add some services

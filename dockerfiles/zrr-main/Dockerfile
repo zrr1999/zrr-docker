@@ -10,6 +10,7 @@ RUN apt-get update \
 
 RUN brew install typst
 RUN curl -fsSL https://get.docker.com/ | sh
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 WORKDIR "/workspace"
 EXPOSE 22
