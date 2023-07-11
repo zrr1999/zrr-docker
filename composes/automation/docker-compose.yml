@@ -4,7 +4,7 @@ services:
     image: whyour/qinglong:latest
     container_name: qinglong
     volumes:
-      - ~/workspace/compose-config/qinglong/data:/ql/data
+      - ~/workspace/compose-config/qinglong:/ql/data
     ports:
       - 5700:5700
     environment:
