@@ -41,7 +41,7 @@ RUN brew install lsd sd dust ripgrep fd hyperfine bottom procs
 RUN brew install pueue fzf httpie progress atuin lua
 RUN brew install helix git-delta gitui zellij difftastic
 RUN brew install ast-grep
-RUN brew install python@3.10 pdm pre-commit
+RUN brew install python pdm pre-commit
 
 # add some services
 RUN echo "pueued -d" >> /run.sh
