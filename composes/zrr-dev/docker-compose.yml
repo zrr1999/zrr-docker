@@ -10,6 +10,7 @@ services:
       - 10000:22
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock'
+      - '/mnt:/mnt'
       - '~/workspace:/workspace'
     command: /bin/bash -c "/run.sh && zsh"
     restart: unless-stopped

@@ -2,7 +2,7 @@ version: "3"
 services:
   zrr-tools:
     image: zrr1999/zrr-tools:latest
+    restart: unless-stopped
     container_name: zrr-tools
     ports:
       - 12888:8000
-    restart: unless-stopped
