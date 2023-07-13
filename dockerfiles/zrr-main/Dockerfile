@@ -4,7 +4,6 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # install apt-get packages
 RUN apt-get update \
 && apt-get install -y --no-install-recommends ffmpeg \
-# && apt-get install -y --no-install-recommends docker-ce-cli \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*
 
