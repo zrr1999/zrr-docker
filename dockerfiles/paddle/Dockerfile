@@ -22,19 +22,19 @@ USER zrr1999
 
 # install brew
 RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-RUN (echo; echo "eval '$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)'") >> /home/zrr1999/profile
+RUN (echo; echo "eval '$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)'") >> /etc/profile
 ENV PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 
 # install and config zsh
 RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 COPY config/.* /home/zrr1999/
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/z-shell/zi-src/main/lib/sh/install.sh)" -- -i skip \
-&& /bin/zsh -cl -- '(source ~/.zi.zsh && @zi-scheduler burst) || true'
+&& /bin/zsh -cl -- '(source /home/zrr1999/.zi.zsh && @zi-scheduler burst) || true'
 
 # install and config ssh
 RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 RUN sed -i 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' /etc/pam.d/sshd
-RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa
+RUN ssh-keygen -t rsa -f /home/zrr1999/.ssh/id_rsa
 
 # install some tools
 RUN brew install lsd sd dust ripgrep fd hyperfine bottom procs
