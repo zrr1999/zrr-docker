@@ -20,27 +20,14 @@ RUN echo "root:0000" | chpasswd
 RUN echo "zrr1999:0000" | chpasswd
 USER zrr1999
 
-# install brew
-RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-RUN (echo; echo "eval '$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)'") >> /etc/profile
-ENV PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
-
-# install and config zsh
-RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-COPY config/.* /home/zrr1999/
-RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/z-shell/zi-src/main/lib/sh/install.sh)" -- -i skip \
-&& /bin/zsh -cl -- '(source /home/zrr1999/.zi.zsh && @zi-scheduler burst) || true'
-
 # install and config ssh
 RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 RUN sed -i 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' /etc/pam.d/sshd
 RUN ssh-keygen -t rsa -f /home/zrr1999/.ssh/id_rsa
 
-# install some tools
-RUN brew install lsd sd dust ripgrep fd hyperfine bottom procs
-RUN brew install pueue fzf httpie progress atuin lua
-RUN brew install helix git-delta gitui zellij difftastic
-RUN brew install ast-grep
+# install some tools by yadm
+ENV PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
+RUN curl -fsSL https://github.com/TheLocehiliosan/yadm/raw/master/yadm | bash -s clone https://github.com/zrr1999/dotfiles.git
 
 # add some services
 RUN echo "pueued -d" >> /run.sh
