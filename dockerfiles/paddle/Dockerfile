@@ -23,6 +23,7 @@ USER zrr1999
 # install and config ssh
 RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 RUN sed -i 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' /etc/pam.d/sshd
+RUN mkdir -p /home/zrr1999/.ssh
 RUN ssh-keygen -t rsa -f /home/zrr1999/.ssh/id_rsa
 
 # install some tools by yadm
