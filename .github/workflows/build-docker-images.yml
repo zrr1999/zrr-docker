@@ -38,12 +38,12 @@ jobs:
         tags: |
           ${{ secrets.DOCKERHUB_USERNAME }}/zrr-base:${{ github.ref_name }}
           ${{ secrets.DOCKERHUB_USERNAME }}/zrr-base:latest
-  build-images:
+  build-high-images:
     strategy:
       fail-fast: false
       matrix:
         image: ["paddle"]
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
     - uses: actions/checkout@v3
     - name: Login to DockerHub
