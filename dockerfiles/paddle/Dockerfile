@@ -1,4 +1,4 @@
-FROM ubuntu:latest as base
+FROM paddlepaddle/paddle:latest-dev-cuda11.7-cudnn8.4-trt8.4-gcc8.2
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 ENV TERM xterm
 
