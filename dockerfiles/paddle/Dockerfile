@@ -5,7 +5,7 @@ ENV TERM xterm
 # install apt-get packages
 RUN sed -i s@/archive.ubuntu.com/@/mirrors.ustc.edu.cn/@g /etc/apt/sources.list
 RUN apt-get update \
-&& apt-get install -y --no-install-recommends zsh git curl bsdmainutils \
+&& apt-get install -y --no-install-recommends zsh git curl bsdmainutils yadm \
 build-essential openssh-server ca-certificates language-pack-zh-hans \
 && apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -28,9 +28,7 @@ RUN ssh-keygen -t rsa -f /home/zrr1999/.ssh/id_rsa
 
 # install some tools by yadm
 ENV PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
-# https://reurl.cc/OvgKL3 https://github.com/TheLocehiliosan/yadm/raw/master/yadm
-# https://reurl.cc/65Mnxd https://github.com/zrr1999/dotfiles.git
-RUN curl -fsSL https://reurl.cc/OvgKL3 | bash -s clone https://reurl.cc/65Mnxd
+RUN yadm clone --bootstrap https://github.com/zrr1999/dotfiles.git
 
 # add some services
 RUN echo "pueued -d" >> /run.sh

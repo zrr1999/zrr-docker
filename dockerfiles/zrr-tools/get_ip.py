@@ -17,7 +17,7 @@ async def read_root(request: Request):
     return request.client.host
 
 @app.get("/v1/get_ip")
-async def v2_get_ip(request: Request):
+async def get_ip(request: Request):
     client_host = request.headers.get("X-Real-IP")
     x_forwarded_for = request.headers.get("X-Forwarded-For")
 
