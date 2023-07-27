@@ -28,7 +28,9 @@ RUN ssh-keygen -t rsa -f /home/zrr1999/.ssh/id_rsa
 
 # install some tools by yadm
 ENV PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
-RUN curl -fsSL https://github.com/TheLocehiliosan/yadm/raw/master/yadm | bash -s clone https://github.com/zrr1999/dotfiles.git
+# https://reurl.cc/OvgKL3 https://github.com/TheLocehiliosan/yadm/raw/master/yadm
+# https://reurl.cc/65Mnxd https://github.com/zrr1999/dotfiles.git
+RUN curl -fsSL https://reurl.cc/OvgKL3 | bash -s clone https://reurl.cc/65Mnxd
 
 # add some services
 RUN echo "pueued -d" >> /run.sh
