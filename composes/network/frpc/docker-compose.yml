@@ -1,9 +1,0 @@
-version: '3.3'
-services:
-  frpc:
-    image: snowdreamtech/frpc
-    container_name: frpc
-    network_mode: host
-    volumes:
-        - '~/workspace/compose-config/frp:/etc/frp'
-    restart: unless-stopped
