@@ -8,7 +8,7 @@ on:
   pull_request:
     branches: [main]
 jobs:
-  build-base:
+  build-base-image:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -38,12 +38,46 @@ jobs:
         tags: |
           ${{ secrets.DOCKERHUB_USERNAME }}/zrr-base:${{ github.ref_name }}
           ${{ secrets.DOCKERHUB_USERNAME }}/zrr-base:latest
-  build-images-needs-base:
+  build-other-images-needs-base:
     needs: [build-base]
     strategy:
       fail-fast: false
       matrix:
-        image: ["zrr-main", "zrr-tools"]
+        image: ["zrr-main", "zrr-paddle"]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Login to DockerHub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
+    - name: Build and push Docker image (${{matrix.image}})
+      uses: docker/build-push-action@v2
+      if: github.event_name == 'pull_request'
+      env:
+        COMMIT_ID: ${{ github.sha}}
+      with:
+        context: ./dockerfiles/${{matrix.image}}
+        push: true
+        tags: |
+          ${{ secrets.DOCKERHUB_USERNAME }}/${{matrix.image}}:${{ env.COMMIT_ID }}
+    - name: Build and push Docker image (${{matrix.image}})
+      uses: docker/build-push-action@v2
+      if: github.event_name != 'pull_request'
+      env:
+        COMMIT_ID: ${{ github.sha}}
+      with:
+        context: ./dockerfiles/${{matrix.image}}
+        push: true
+        tags: |
+          ${{ secrets.DOCKERHUB_USERNAME }}/${{matrix.image}}:${{ github.ref_name }}
+          ${{ secrets.DOCKERHUB_USERNAME }}/${{matrix.image}}:latest
+  build-other-images:
+    strategy:
+      fail-fast: false
+      matrix:
+        image: ["zrr-tools"]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3

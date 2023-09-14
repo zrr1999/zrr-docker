@@ -10,22 +10,25 @@ services:
       - 10000:22
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock'
-      - '/mnt:/mnt'
       - '~/workspace:/workspace'
+      - '~/micromamba/envs/cuda118:/nvidia/cuda118:r'
+      - '/mnt:/mnt:r'
+      - '~/.ssh:/root/.ssh:r'
     command: /bin/bash -c "/run.sh && zsh"
-    restart: unless-stopped
+    restart: unless-stopped 
 
   dev-paddle:
-    image: zrr1999/zrr-main:latest
+    image: zrr1999/zrr-paddle:latest
     tty: true
     privileged: true
     pid: host
     container_name: dev-paddle
     ports:
-      - 10000:22
+      - 10001:22
     volumes:
-      - '~/micromamba/envs/cuda118:/nvidia/cuda118'
       - '~/workspace:/workspace'
-      - '/mnt:/mnt'
+      - '~/micromamba/envs/cuda118:/nvidia/cuda118:r'
+      - '/mnt:/mnt:r'
+      - '~/.ssh:/root/.ssh:r'
     command: /bin/bash -c "/run.sh && zsh"
     restart: unless-stopped
