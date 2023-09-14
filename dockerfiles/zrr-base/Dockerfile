@@ -12,19 +12,19 @@ build-essential openssh-server ca-certificates language-pack-zh-hans \
 # fix some errors
 RUN localedef -c -i zh_CN -f UTF-8 zh_CN.UTF-8
 
-# switch to zrr1999 user
-RUN useradd -r -g root zrr1999 \
-&& sed -i 's#zrr1999:x:999:0::/home/zrr1999:/bin/sh#zrr1999:x:0:0::/home/zrr1999:/bin/zsh#g' /etc/passwd \
-&& sed -i 's#root:x:0:0:root:/root:/bin/bash#root:x:0:0::/home/zrr1999:/bin/zsh#g' /etc/passwd
+# switch to zrr user
+RUN useradd -r -g root zrr \
+&& sed -i 's#zrr:x:999:0::/home/zrr:/bin/sh#zrr:x:0:0::/home/zrr:/bin/zsh#g' /etc/passwd
+RUN ln -s /home/zrr /root
 RUN echo "root:0000" | chpasswd
-RUN echo "zrr1999:0000" | chpasswd
-USER zrr1999
+RUN echo "zrr:0000" | chpasswd
+USER zrr
 
 # install and config ssh
 RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 RUN sed -i 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' /etc/pam.d/sshd
-RUN mkdir -p /home/zrr1999/.ssh
-RUN ssh-keygen -t rsa -f /home/zrr1999/.ssh/id_rsa
+RUN mkdir -p /home/zrr/.ssh
+RUN ssh-keygen -t rsa -f /home/zrr/.ssh/id_rsa
 
 # install some tools by yadm
 ENV PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
