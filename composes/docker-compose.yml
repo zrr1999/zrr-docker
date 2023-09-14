@@ -1,11 +1,11 @@
 version: "3"
 services:
-  my-base:
+  dev-main:
     image: zrr1999/zrr-main:latest
     tty: true
     privileged: true
     pid: host
-    container_name: my-base
+    container_name: dev-main
     ports:
       - 10000:22
     volumes:
@@ -14,21 +14,18 @@ services:
       - '~/workspace:/workspace'
     command: /bin/bash -c "/run.sh && zsh"
     restart: unless-stopped
-  boning-mlir:
-    image: zrr1999/boning-mlir:latest
+
+  dev-paddle:
+    image: zrr1999/zrr-main:latest
     tty: true
-    container_name: boning-mlir
+    privileged: true
+    pid: host
+    container_name: dev-paddle
     ports:
-      - 10001:22
+      - 10000:22
     volumes:
+      - '~/micromamba/envs/cuda118:/nvidia/cuda118'
       - '~/workspace:/workspace'
+      - '/mnt:/mnt'
     command: /bin/bash -c "/run.sh && zsh"
     restart: unless-stopped
-  # typst:
-  #   image: zrr1999/typst:latest
-  #   container_name: typst
-  #   ports:
-  #     - 10002:22
-  #   volumes:
-  #     - '~/workspace:/workspace'
-  #   restart: unless-stopped
