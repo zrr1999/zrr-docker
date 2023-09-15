@@ -14,12 +14,12 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Login to DockerHub
-      uses: docker/login-action@v1
+      uses: docker/login-action@v3
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
     - name: Build and push docker base image
-      uses: docker/build-push-action@v2
+      uses: docker/build-push-action@v5
       if: github.event_name == 'pull_request'
       env:
         COMMIT_ID: ${{ github.sha}}
@@ -29,7 +29,7 @@ jobs:
         tags: |
           ${{ secrets.DOCKERHUB_USERNAME }}/zrr-base:${{ env.COMMIT_ID }}
     - name: Build and push docker base image
-      uses: docker/build-push-action@v2
+      uses: docker/build-push-action@v5
       if: github.event_name != 'pull_request'
       env:
         COMMIT_ID: ${{ github.sha}}
@@ -49,12 +49,12 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Login to DockerHub
-      uses: docker/login-action@v1
+      uses: docker/login-action@v3
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
     - name: Build and push Docker image (${{matrix.image}})
-      uses: docker/build-push-action@v2
+      uses: docker/build-push-action@v5
       if: github.event_name == 'pull_request'
       env:
         COMMIT_ID: ${{ github.sha}}
@@ -64,7 +64,7 @@ jobs:
         tags: |
           ${{ secrets.DOCKERHUB_USERNAME }}/${{matrix.image}}:${{ env.COMMIT_ID }}
     - name: Build and push Docker image (${{matrix.image}})
-      uses: docker/build-push-action@v2
+      uses: docker/build-push-action@v5
       if: github.event_name != 'pull_request'
       env:
         COMMIT_ID: ${{ github.sha}}
@@ -83,12 +83,12 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Login to DockerHub
-      uses: docker/login-action@v1
+      uses: docker/login-action@v3
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
     - name: Build and push Docker image (${{matrix.image}})
-      uses: docker/build-push-action@v2
+      uses: docker/build-push-action@v5
       if: github.event_name == 'pull_request'
       env:
         COMMIT_ID: ${{ github.sha}}
@@ -98,7 +98,7 @@ jobs:
         tags: |
           ${{ secrets.DOCKERHUB_USERNAME }}/${{matrix.image}}:${{ env.COMMIT_ID }}
     - name: Build and push Docker image (${{matrix.image}})
-      uses: docker/build-push-action@v2
+      uses: docker/build-push-action@v5
       if: github.event_name != 'pull_request'
       env:
         COMMIT_ID: ${{ github.sha}}
