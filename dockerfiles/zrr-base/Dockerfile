@@ -15,7 +15,7 @@ RUN localedef -c -i zh_CN -f UTF-8 zh_CN.UTF-8
 # switch to zrr user
 RUN useradd -r -g root zrr \
 && sed -i 's#zrr:x:999:0::/home/zrr:/bin/sh#zrr:x:0:0::/home/zrr:/bin/zsh#g' /etc/passwd
-RUN ln -s /home/zrr /root
+RUN ln -s /root /home/zrr
 RUN echo "root:0000" | chpasswd
 RUN echo "zrr:0000" | chpasswd
 USER zrr
