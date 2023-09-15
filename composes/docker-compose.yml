@@ -15,7 +15,7 @@ services:
       - '/mnt:/mnt:r'
       - '~/.ssh:/root/.ssh:r'
     command: /bin/bash -c "/run.sh && zsh"
-    restart: unless-stopped 
+    restart: unless-stopped
 
   dev-paddle:
     image: zrr1999/zrr-paddle:latest
