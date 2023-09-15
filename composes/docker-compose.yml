@@ -27,7 +27,7 @@ services:
       - 10001:22
     volumes:
       - '~/workspace:/workspace'
-      - '~/micromamba/envs/cuda118:/nvidia/cuda118:r'
+      - '~/micromamba/envs/cuda118:/nvidia/cuda:r'
       - '/mnt:/mnt:r'
       - '~/.ssh:/root/.ssh:r'
     command: /bin/bash -c "/run.sh && zsh"
