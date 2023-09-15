@@ -39,7 +39,7 @@ jobs:
           ${{ secrets.DOCKERHUB_USERNAME }}/zrr-base:${{ github.ref_name }}
           ${{ secrets.DOCKERHUB_USERNAME }}/zrr-base:latest
   build-other-images-needs-base:
-    needs: [build-base]
+    needs: [build-base-image]
     strategy:
       fail-fast: false
       matrix:
