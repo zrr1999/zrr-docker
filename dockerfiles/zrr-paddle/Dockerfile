@@ -6,11 +6,11 @@ RUN apt-get update \
 && apt-get clean && rm -rf /var/lib/apt/lists/* \
 && brew install cmake ninja llvm gdb \
 && brew install python@3.8 python@3.9 python@3.10 \
-&& pip3 install --no-cache-dir protobuf ninja
+&& pip3 install --no-cache-dir protobuf==3.1.0 ninja
 
 RUN echo "export PATH=$PATH:/nvidia/cuda/bin" >> /etc/profile
 RUN echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/nvidia/cuda/lib64" >> /etc/profile
-RUN echo "export CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:nvidia/cuda/include" >> /etc/profile
+RUN echo "export CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:/nvidia/cuda/include" >> /etc/profile
 RUN echo "export NCCL_ROOT=/nvidia/cuda" >> /etc/profile
 RUN echo "export CUDA_HOME=$CUDA_HOME:/nvidia/cuda" >> /etc/profile
 
