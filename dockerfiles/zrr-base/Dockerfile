@@ -21,8 +21,8 @@ RUN echo "zrr:0000" | chpasswd
 USER zrr
 
 # install and config ssh
-RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
-RUN sed -i 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' /etc/pam.d/sshd
+# RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+# RUN sed -i 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' /etc/pam.d/sshd
 RUN mkdir -p /home/zrr/.ssh
 RUN ssh-keygen -t rsa -f /home/zrr/.ssh/id_rsa
 
