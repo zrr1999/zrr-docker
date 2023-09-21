@@ -12,7 +12,7 @@ RUN echo "export PATH=$PATH:/nvidia/cuda/bin" >> /etc/profile
 RUN echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/nvidia/cuda/lib64" >> /etc/profile
 RUN echo "export CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:/nvidia/cuda/include" >> /etc/profile
 RUN echo "export NCCL_ROOT=/nvidia/cuda" >> /etc/profile
-RUN echo "export CUDA_HOME=$CUDA_HOME:/nvidia/cuda" >> /etc/profile
+RUN echo "export CUDA_HOME=/nvidia/cuda" >> /etc/profile
 
 WORKDIR "/workspace"
 EXPOSE 22
