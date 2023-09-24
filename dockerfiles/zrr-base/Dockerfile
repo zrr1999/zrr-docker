@@ -6,7 +6,7 @@ ENV PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 # install apt-get packages
 RUN sed -i s@/archive.ubuntu.com/@/mirrors.ustc.edu.cn/@g /etc/apt/sources.list
 RUN apt-get update \
-&& apt-get install -y --no-install-recommends curl bsdmainutils \
+&& apt-get install -y --no-install-recommends curl git bsdmainutils \
 build-essential openssh-server ca-certificates language-pack-zh-hans \
 && apt-get clean && rm -rf /var/lib/apt/lists/*
 
