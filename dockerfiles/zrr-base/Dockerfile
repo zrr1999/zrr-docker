@@ -17,7 +17,8 @@ RUN localedef -c -i zh_CN -f UTF-8 zh_CN.UTF-8
 RUN echo "root:0000" | chpasswd
 RUN curl -fLo /tmp/yadm https://github.com/TheLocehiliosan/yadm/raw/master/yadm \
 && chmod a+x /tmp/yadm \
-&& /tmp/yadm clone --bootstrap https://github.com/zrr1999/dotfiles.git \
+&& /tmp/yadm clone https://github.com/zrr1999/dotfiles.git \
+&& /tmp/yadm bootstrap \
 && rm /tmp/yadm
 USER zrr
 
