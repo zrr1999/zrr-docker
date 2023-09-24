@@ -6,7 +6,7 @@ ENV PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 # install apt-get packages
 RUN sed -i s@/archive.ubuntu.com/@/mirrors.ustc.edu.cn/@g /etc/apt/sources.list
 RUN apt-get update \
-&& apt-get install -y --no-install-recommends curl bsdmainutils yadm \
+&& apt-get install -y --no-install-recommends curl bsdmainutils \
 build-essential openssh-server ca-certificates language-pack-zh-hans \
 && apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -15,7 +15,10 @@ RUN localedef -c -i zh_CN -f UTF-8 zh_CN.UTF-8
 
 # switch to zrr user and install some tools by yadm
 RUN echo "root:0000" | chpasswd
-RUN yadm clone --bootstrap https://github.com/zrr1999/dotfiles.git
+RUN curl -fLo /tmp/yadm https://github.com/TheLocehiliosan/yadm/raw/master/yadm \
+&& chmod a+x /tmp/yadm \
+&& /tmp/yadm clone --bootstrap https://github.com/zrr1999/dotfiles.git \
+&& rm /tmp/yadm
 USER zrr
 
 # install and config ssh
