@@ -32,10 +32,7 @@ jobs:
           ${{ secrets.DOCKERHUB_USERNAME }}/zrr-base:${{ env.COMMIT_ID }}
     - name: Build and push docker base image
       uses: docker/build-push-action@v5
-      if: github.event_name == 'push' && (
-          contains(github.event.push.changed_files, 'dockerfiles/zrr-base/Dockerfile') ||
-          contains(github.event.push.head_commit.message, 'rebuild base image')
-        )
+      if: github.event_name == 'push'
       env:
         COMMIT_ID: ${{ github.sha}}
       with:
