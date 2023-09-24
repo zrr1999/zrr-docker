@@ -1,4 +1,4 @@
-FROM zrr1999/zrr-base:latest as base
+FROM zrr1999/zrr-base:latest
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # install apt-get packages
