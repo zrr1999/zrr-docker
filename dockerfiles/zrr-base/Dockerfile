@@ -14,7 +14,7 @@ RUN localedef -c -i zh_CN -f UTF-8 zh_CN.UTF-8
 
 # switch to zrr user
 RUN echo "root:0000" | chpasswd
-RUN yadm clone --bootstrap https://github.com/zrr1999/dotfiles.git
+RUN yadm clone https://github.com/zrr1999/dotfiles.git
 USER zrr
 
 # install and config ssh
@@ -25,6 +25,7 @@ RUN chmod -R 600 /etc/ssh/
 
 # install some tools by yadm
 ENV PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
+RUN yadm bootstrap
 
 # add some services
 RUN echo "pueued -d" >> /run.sh
