@@ -1,6 +1,7 @@
-FROM ubuntu:latest as base
+FROM ubuntu:22.04
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 ENV TERM xterm
+ENV PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 
 # install apt-get packages
 RUN sed -i s@/archive.ubuntu.com/@/mirrors.ustc.edu.cn/@g /etc/apt/sources.list
@@ -12,20 +13,16 @@ build-essential openssh-server ca-certificates language-pack-zh-hans \
 # fix some errors
 RUN localedef -c -i zh_CN -f UTF-8 zh_CN.UTF-8
 
-# switch to zrr user
+# switch to zrr user and install some tools by yadm
 RUN echo "root:0000" | chpasswd
-RUN yadm clone https://github.com/zrr1999/dotfiles.git
+RUN yadm clone --bootstrap https://github.com/zrr1999/dotfiles.git
 USER zrr
 
 # install and config ssh
-RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
-RUN sed -i 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' /etc/pam.d/sshd
+# RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+# RUN sed -i 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' /etc/pam.d/sshd
 RUN ssh-keygen -t rsa -f /home/zrr/.ssh/id_rsa
 # RUN chmod -R 600 /etc/ssh/
-
-# install some tools by yadm
-ENV PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
-RUN yadm bootstrap
 
 # add some services
 RUN echo "pueued -d" >> /run.sh
