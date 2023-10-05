@@ -80,7 +80,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        image: ["zrr-tools"]
+        image: ["zrr-tools", "zrr-caddy"]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
