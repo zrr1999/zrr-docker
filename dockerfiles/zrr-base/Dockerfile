@@ -20,12 +20,11 @@ RUN curl -fLo /tmp/yadm https://github.com/TheLocehiliosan/yadm/raw/master/yadm 
 && /tmp/yadm clone https://github.com/zrr1999/dotfiles.git \
 && /tmp/yadm bootstrap \
 && rm /tmp/yadm
-USER zrr
 
 # install and config ssh
 # RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 # RUN sed -i 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' /etc/pam.d/sshd
-RUN ssh-keygen -t rsa -f /home/zrr/.ssh/id_rsa
+RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa
 # RUN chmod -R 600 /etc/ssh/
 
 # add some services
