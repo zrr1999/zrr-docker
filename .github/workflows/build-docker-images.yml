@@ -22,7 +22,7 @@ jobs:
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
     - name: Build and push docker base image
       uses: docker/build-push-action@v5
-      if: github.event_name == 'pull_request'
+      if: github.event_name == 'pull_request' && contains(github.event.head_commit.modified, 'zrr-docker/dockerfiles/zrr-base/Dockerfile')
       env:
         COMMIT_ID: ${{ github.sha}}
       with:
@@ -32,7 +32,7 @@ jobs:
           ${{ secrets.DOCKERHUB_USERNAME }}/zrr-base:${{ env.COMMIT_ID }}
     - name: Build and push docker base image
       uses: docker/build-push-action@v5
-      if: github.event_name == 'push'
+      if: github.event_name == 'push' && contains(github.event.head_commit.modified, 'zrr-docker/dockerfiles/zrr-base/Dockerfile')
       env:
         COMMIT_ID: ${{ github.sha}}
       with:
@@ -57,7 +57,7 @@ jobs:
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
     - name: Build and push Docker image (${{matrix.image}})
       uses: docker/build-push-action@v5
-      if: github.event_name == 'pull_request'
+      if: github.event_name == 'pull_request' && contains(github.event.head_commit.modified, 'zrr-docker/dockerfiles/${{matrix.image}}/Dockerfile')
       env:
         COMMIT_ID: ${{ github.sha}}
       with:
@@ -71,7 +71,7 @@ jobs:
       env:
         COMMIT_ID: ${{ github.sha}}
       with:
-        context: ./dockerfiles/${{matrix.image}}
+        context: ./dockerfiles/${{matrix.image}} && contains(github.event.head_commit.modified, 'zrr-docker/dockerfiles/${{matrix.image}}/Dockerfile')
         push: true
         tags: |
           ${{ secrets.DOCKERHUB_USERNAME }}/${{matrix.image}}:${{ github.ref_name }}
@@ -91,7 +91,7 @@ jobs:
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
     - name: Build and push Docker image (${{matrix.image}})
       uses: docker/build-push-action@v5
-      if: github.event_name == 'pull_request'
+      if: github.event_name == 'pull_request' && contains(github.event.head_commit.modified, 'zrr-docker/dockerfiles/${{matrix.image}}/Dockerfile')
       env:
         COMMIT_ID: ${{ github.sha}}
       with:
@@ -101,7 +101,7 @@ jobs:
           ${{ secrets.DOCKERHUB_USERNAME }}/${{matrix.image}}:${{ env.COMMIT_ID }}
     - name: Build and push Docker image (${{matrix.image}})
       uses: docker/build-push-action@v5
-      if: github.event_name != 'pull_request'
+      if: github.event_name != 'pull_request' && contains(github.event.head_commit.modified, 'zrr-docker/dockerfiles/${{matrix.image}}/Dockerfile')
       env:
         COMMIT_ID: ${{ github.sha}}
       with:
