@@ -6,7 +6,9 @@ RUN apt-get update \
 
 RUN mkdir /stable-diffusion && cd /stable-diffusion \
 && git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git \
-&& cd stable-diffusion-webui && bash webui.sh
+&& cd stable-diffusion-webui \
+&& sed -i 's/can_run_as_root=0/can_run_as_root=1/g' webui.sh \
+&& bash webui.sh
 
 RUN echo "export PATH=$PATH:/nvidia/cuda/bin" >> /etc/profile
 RUN echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/nvidia/cuda/lib" >> /etc/profile
