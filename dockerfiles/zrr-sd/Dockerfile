@@ -8,6 +8,7 @@ RUN mkdir /stable-diffusion && cd /stable-diffusion \
 && git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git \
 && cd stable-diffusion-webui \
 && sed -i 's/can_run_as_root=0/can_run_as_root=1/g' webui.sh \
+&& export COMMANDLINE_ARGS="--skip-torch-cuda-test" \
 && bash webui.sh
 
 RUN echo "export PATH=$PATH:/nvidia/cuda/bin" >> /etc/profile
