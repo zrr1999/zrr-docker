@@ -11,9 +11,9 @@ RUN apt-get update \
 && pip3.10 install --no-cache-dir protobuf==3.1.0 ninja numpy \
 && pip3.11 install --no-cache-dir protobuf==3.1.0 ninja numpy
 
-RUN echo "export PATH=$PATH:/nvidia/cuda/bin" >> /etc/profile
-RUN echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/nvidia/cuda/lib" >> /etc/profile
-RUN echo "export CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:/nvidia/cuda/include" >> /etc/profile
+RUN echo "export PATH=\$PATH:/nvidia/cuda/bin" >> /etc/profile
+RUN echo "export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:/nvidia/cuda/lib" >> /etc/profile
+RUN echo "export CPLUS_INCLUDE_PATH=\$CPLUS_INCLUDE_PATH:/nvidia/cuda/include" >> /etc/profile
 RUN echo "export NCCL_ROOT=/nvidia/cuda" >> /etc/profile
 RUN echo "export CUDA_HOME=/nvidia/cuda" >> /etc/profile
 
