@@ -12,11 +12,11 @@ RUN mkdir /stable-diffusion && cd /stable-diffusion \
 && export venv_dir="-" \
 && bash webui.sh -f
 
-RUN echo "export PATH=\$PATH:/nvidia/cuda/bin" >> /etc/profile
-RUN echo "export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:/nvidia/cuda/lib" >> /etc/profile
-RUN echo "export CPLUS_INCLUDE_PATH=\$CPLUS_INCLUDE_PATH:/nvidia/cuda/include" >> /etc/profile
-RUN echo "export NCCL_ROOT=/nvidia/cuda" >> /etc/profile
-RUN echo "export CUDA_HOME=/nvidia/cuda" >> /etc/profile
+ENV PATH="$PATH:/nvidia/cuda/bin"
+ENV LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/nvidia/cuda/lib"
+ENV CPLUS_INCLUDE_PATH="$CPLUS_INCLUDE_PATH:/nvidia/cuda/include"
+ENV NCCL_ROOT="/nvidia/cuda"
+ENV CUDA_HOME="/nvidia/cuda"
 
 WORKDIR "/workspace"
 EXPOSE 22
