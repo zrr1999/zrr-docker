@@ -4,6 +4,7 @@ from fastapi.middleware.trustedhost import TrustedHostMiddleware
 app = FastAPI()
 app.add_middleware(TrustedHostMiddleware, allowed_hosts=["*"])
 
+
 @app.get("/get_ip/v2")
 async def get_ip_v2(request: Request):
     client_host = request.headers.get("X-Real-IP")
@@ -28,6 +29,8 @@ async def get_ip_v1(request: Request):
 
     return client_host
 
+
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000, forwarded_allow_ips='*')
+
+    uvicorn.run(app, host="0.0.0.0", port=8000, forwarded_allow_ips="*")

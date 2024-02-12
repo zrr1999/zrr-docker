@@ -10,7 +10,7 @@ app = typer.Typer()
 
 
 @app.command()
-def build(path:str, user:str="zrr1999"):
+def build(path: str, user: str = "zrr1999"):
     result = run(f"cd {path} && git rev-parse --short HEAD")
     if result is not None and result.ok:
         commit_id = result.stdout.strip()
@@ -22,9 +22,6 @@ def build(path:str, user:str="zrr1999"):
             client.images.build(path=os.path.join(path, folder), tag=tag)
             client.images.push(tag)
 
-@app.command()
-def compose(path:str, user:str="zrr1999"):
-    pass
 
-if __name__=="__main__":
+if __name__ == "__main__":
     app()
