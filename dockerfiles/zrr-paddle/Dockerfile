@@ -7,8 +7,7 @@ RUN apt-get update \
 && brew install cmake ninja llvm gdb ccache \
 && brew install micromamba \
 && micromamba create -n python3.10 python=3.10 protobuf==3.20.3 numpy ninja \
-&& micromamba create -n python3.11 python=3.11 protobuf==3.20.3 numpy ninja \
-&& micromamba create -n python3.12 python=3.12 protobuf==3.20.3 numpy ninja
+&& micromamba create -n python3.11 python=3.11 protobuf==3.20.3 numpy ninja 
 
 ENV PATH="$PATH:/nvidia/cuda/bin"
 ENV LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/nvidia/cuda/lib"
