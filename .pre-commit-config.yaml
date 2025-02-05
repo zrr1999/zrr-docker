@@ -4,7 +4,6 @@ repos:
     hooks:
       - id: check-yaml
       - id: check-json
-        exclude: .vscode/(.)*\.json
       - id: check-merge-conflict
       - id: debug-statements
       - id: end-of-file-fixer
@@ -12,13 +11,13 @@ repos:
       - id: trailing-whitespace
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.1.6
+    rev: v0.9.4
     hooks:
-      - id: ruff
-        args: [ --fix, --exit-non-zero-on-fix ]
       - id: ruff-format
+      - id: ruff
+        args: [--fix, --unsafe-fixes, --exit-non-zero-on-fix]
 
   - repo: https://github.com/AleksaC/hadolint-py
-    rev: v2.12.0
+    rev: v2.12.1b3
     hooks:
       - id: hadolint

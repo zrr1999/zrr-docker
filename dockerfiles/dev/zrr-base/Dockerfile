@@ -28,9 +28,9 @@ RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa
 # RUN chmod -R 600 /etc/ssh/
 
 # add some services
-RUN echo "pueued -d" >> /run.sh
-RUN echo "/etc/init.d/ssh start" >> /run.sh
-RUN chmod +x /run.sh
+RUN echo "pueued -d" >> /run.sh \
+&& echo "/etc/init.d/ssh start" >> /run.sh \
+&& chmod +x /run.sh
 
 WORKDIR "/workspace"
 EXPOSE 22

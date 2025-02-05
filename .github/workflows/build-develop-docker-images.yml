@@ -1,0 +1,70 @@
+name: Development Docker Image Build and Push
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "dockerfiles/dev/*/Dockerfile"
+  pull_request:
+    branches: [main]
+    paths:
+      - "dockerfiles/dev/*/Dockerfile"
+jobs:
+  build-base-image:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      - name: Build and push dev docker base image
+        uses: docker/build-push-action@v5
+        if: contains(github.event.head_commit.modified, 'zrr-docker/dockerfiles/dev/zrr-base/Dockerfile')
+        with:
+          context: ./dockerfiles/zrr-base
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/zrr-base:${{ github.sha}}
+      - name: Build and push docker base image
+        uses: docker/build-push-action@v5
+        if: github.event_name == 'push' && contains(github.event.head_commit.modified, 'zrr-docker/dockerfiles/dev/zrr-base/Dockerfile')
+        with:
+          context: ./dockerfiles/zrr-base
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/zrr-base:${{ github.ref_name }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/zrr-base:latest
+  build-images-needs-base:
+    needs: [build-base-image]
+    strategy:
+      fail-fast: false
+      matrix:
+        image: ["zrr-main", "zrr-paddle", "zrr-sd"]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      - name: Build and push dev docker image (${{matrix.image}})
+        uses: docker/build-push-action@v5
+        if: contains(github.event.head_commit.modified, 'zrr-docker/dockerfiles/dev/${{matrix.image}}/Dockerfile')
+        with:
+          context: ./dockerfiles/${{matrix.image}}
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{matrix.image}}:${{ github.sha}}
+      - name: Build and push docker image (${{matrix.image}})
+        uses: docker/build-push-action@v5
+        if: github.event_name == 'push' && contains(github.event.head_commit.modified, 'zrr-docker/dockerfiles/dev/${{matrix.image}}/Dockerfile')
+        with:
+          context: ./dockerfiles/${{matrix.image}}
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{matrix.image}}:${{ github.ref_name }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{matrix.image}}:latest
