@@ -28,7 +28,7 @@ jobs:
         uses: docker/build-push-action@v5
         if: contains(github.event.head_commit.modified, 'zrr-docker/prod/dockerfiles/${{matrix.image}}/Dockerfile')
         with:
-          context: ./dockerfiles/${{matrix.image}}
+          context: ./dockerfiles/prod/${{matrix.image}}
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/${{matrix.image}}:${{ github.sha}}
@@ -36,7 +36,7 @@ jobs:
         uses: docker/build-push-action@v5
         if: github.event_name == 'push' && contains(github.event.head_commit.modified, 'zrr-docker/prod/dockerfiles/${{matrix.image}}/Dockerfile')
         with:
-          context: ./dockerfiles/${{matrix.image}}
+          context: ./dockerfiles/prod/${{matrix.image}}
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/${{matrix.image}}:${{ github.ref_name }}
