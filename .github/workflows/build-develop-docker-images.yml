@@ -42,7 +42,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        image: ["zrr-main", "zrr-paddle", "zrr-sd"]
+        image: ["zrr-paddle", "zrr-sd"]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
