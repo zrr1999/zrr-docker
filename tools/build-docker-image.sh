@@ -1,3 +1,5 @@
+#!/bin/bash
+
 path=$1
 
 commit_id=$(git rev-parse --short HEAD)
